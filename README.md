@@ -25,7 +25,7 @@ $ lspci -nnk -d 8086:4f92
 	Kernel driver in use: vfio-pci
 	Kernel modules: snd_hda_intel
 ```
-
+>https://www.intel.com/content/www/us/en/products/sku/227958/intel-arc-a310-graphics/downloads.html
 ```
 $ uname -r
 ```
