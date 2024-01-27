@@ -25,3 +25,19 @@ $ lspci -nnk -d 8086:4f92
 	Kernel driver in use: vfio-pci
 	Kernel modules: snd_hda_intel
 ```
+
+```
+$ uname -r
+```
+```
+$ wget -qO - https://repositories.intel.com/gpu/intel-graphics.key |   sudo gpg --dearmor --output /usr/share/keyrings/intel-graphics.gpg
+$ echo "deb [arch=amd64,i386 signed-by=/usr/share/keyrings/intel-graphics.gpg] https://repositories.intel.com/gpu/ubuntu jammy client" |   sudo tee /etc/apt/sources.list.d/intel-gpu-jammy.list
+$ sudo apt update
+$ sudo apt install -y   intel-opencl-icd intel-level-zero-gpu level-zero   intel-media-va-driver-non-free libmfx1 libmfxgen1 libvpl2   libegl-mesa0 libegl1-mesa libegl1-mesa-dev libgbm1 libgl1-mesa-dev libgl1-mesa-dri   libglapi-mesa libgles2-mesa-dev libglx-mesa0 libigdgmm12 libxatracker2 mesa-va-drivers   mesa-vdpau-drivers mesa-vulkan-drivers va-driver-all vainfo hwinfo clinfo
+$ sudo apt install -y   libigc-dev intel-igc-cm libigdfcl-dev libigfxcmrt-dev level-zero-dev
+$ sudo apt update && sudo apt install  -y --install-suggests  linux-generic-hwe-22.04 \
+```
+```
+$ uname -r
+6.5.0-15-generic
+```
