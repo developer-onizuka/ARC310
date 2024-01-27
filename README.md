@@ -29,8 +29,7 @@ $ lspci -nnk -d 8086:4f92
 ```
 
 # 2. i915 driver
-You don't need any installation if you use Ubuntu 23.04. So as you can see my Vagrantfile in this repo, I use the "generic/ubuntu2304".<br>
-See also below:
+You don't need any installation if you use Ubuntu 23.04. So as you can see my Vagrantfile in this repo, I use the "generic/ubuntu2304". See also below: <br>
 >https://www.intel.com/content/www/us/en/products/sku/227958/intel-arc-a310-graphics/downloads.html
 
 # 3. Pull intel-extension-for-tensorflow (itex) for GPU 
