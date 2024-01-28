@@ -86,3 +86,19 @@ tf.Tensor(
    [0.2765956  0.9734486  1.795816  ]]]], shape=(1, 5, 5, 3), dtype=float32)
 Finished
 ```
+
+# 5. Fine-Tuning
+```
+apt install openjdk-8-jdk-headless -qq -y
+pip install pyspark pyarrow scikit-learn fastparquet transformers ipywidgets widgetsnbextension pandas-profiling matplotlib==3.7.3
+```
+```
+git clone https://github.com/developer-onizuka/IntelGPUonWSL
+cd IntelGPUonWSL
+```
+```
+python3 amazon_reviews_parquet_small.py /mnt
+```
+```
+python3 BERT-embedding-from-text_small.py /mnt
+```
