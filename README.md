@@ -39,7 +39,7 @@ sudo docker pull intel/intel-extension-for-tensorflow:xpu
 
 # 4. Run some test script
 ```
-sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" intel/intel-extension-for-tensorflow:xpu
+sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" -e http_proxy="" intel/intel-extension-for-tensorflow:xpu
 ```
 The ITEX plugin is automatically discovered during the importing of the TensorFlow package. If an Intel GPU is present, it is automatically set to the default device (using the Intel® oneAPI Level Zero layer) as shown in the output messages above. <br>
 >https://www.isus.jp/wp-content/uploads/pdf/TheParallelUniverse_Issue_54_02.pdf
