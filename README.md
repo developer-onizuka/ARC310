@@ -115,12 +115,33 @@ Epoch 3/128
 Epoch 4/128
 32/32 [==============================] - 105s 3s/step - loss: 1.3898 - accuracy: 0.3789 - val_loss: 1.3872 - val_accuracy: 0.4414
 ```
-# 6. intel-gpu-tools for monitoring
+
+# 6. Test the trained model
+# (1) CPU
+```
+$ python3 load_model_small_ARC.py /mnt
+---
+1/1 [==============================] - 0s 443ms/step
+```
+# (2) XPU
+```
+$ python3 load_model_small_ARC.py /mnt xpu
+---
+1/1 [==============================] - 0s 196ms/step
+```
+# (3) XPU with BF16
+```
+$ python3 load_model_small_ARC.py /mnt bf16
+---
+1/1 [==============================] - 0s 152ms/step
+```
+
+# 7. intel-gpu-tools for monitoring
 ```
 apt install intel-gpu-tools
 ```
 
-# 7. env_check.sh
+# Appendix. env_check.sh
 ```
 vagrant@arc310:~$ sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" -e http_proxy="" intel/intel-extension-for-tensorflow:xpu
 root@92b867ae96ab:/# export path_to_site_packages=`python -c "import site; print(site.getsitepackages()[0])"`
