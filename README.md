@@ -32,14 +32,14 @@ $ lspci -nnk -d 8086:4f92
 You don't need any installation if you use Ubuntu 23.04. So as you can see my Vagrantfile in this repo, I use the "generic/ubuntu2304". See also below: <br>
 >https://www.intel.com/content/www/us/en/products/sku/227958/intel-arc-a310-graphics/downloads.html
 
-# 3. Pull intel-extension-for-tensorflow (itex) for XPU (means GPU and CPU)
+# 3. Pull intel-extension-for-tensorflow (itex) for GPU
 ```
-sudo docker pull intel/intel-extension-for-tensorflow:xpu
+sudo docker pull intel/intel-extension-for-tensorflow:gpu
 ```
 
 # 4. Run some test script
 ```
-sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" -e http_proxy="" intel/intel-extension-for-tensorflow:xpu
+sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" -e http_proxy="" intel/intel-extension-for-tensorflow:gpu
 ```
 The ITEX plugin is automatically discovered during the importing of the TensorFlow package. If an Intel GPU is present, it is automatically set to the default device (using the Intel® oneAPI Level Zero layer) as shown in the output messages above. <br>
 >https://www.isus.jp/wp-content/uploads/pdf/TheParallelUniverse_Issue_54_02.pdf
