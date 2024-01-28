@@ -1,5 +1,3 @@
-# ARC310
-
 # 1. Direct Path through for Intel ARC A310
 ```
 $ cat /etc/default/grub |grep GRUB_CMDLINE
