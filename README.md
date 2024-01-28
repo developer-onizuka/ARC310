@@ -125,3 +125,74 @@ Epoch 7/128
 ```
 apt install intel-gpu-tools
 ```
+
+# 7. env_check.sh
+```
+vagrant@arc310:~$ sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt intel/intel-extension-for-tensorflow:xpu
+root@92b867ae96ab:/# export path_to_site_packages=`python -c "import site; print(site.getsitepackages()[0])"`
+root@92b867ae96ab:/# echo $path_to_site_packages
+/usr/local/lib/python3.10/dist-packages
+root@92b867ae96ab:/# bash ${path_to_site_packages}/intel_extension_for_tensorflow/tools/env_check.sh
+
+    Check Environment for Intel(R) Extension for TensorFlow*...
+
+
+========================  Check Python  ========================
+
+ python3.10 is installed. 
+
+====================  Check Python Passed  =====================
+
+
+==========================  Check OS  ==========================
+
+ OS ubuntu:22.04 is Supported. 
+
+======================  Check OS Passed  =======================
+
+
+======================  Check Tensorflow  ======================
+
+ Tensorflow2.14 is installed. 
+
+==================  Check Tensorflow Passed  ===================
+
+
+===================  Check Intel GPU Driver  ===================
+
+ Intel(R) graphics runtime intel-level-zero-gpu-1.3.26918.50-736 is installed, but is not recommended . 
+ Intel(R) graphics runtime intel-opencl-icd-23.30.26918.50-736 is installed, but is not recommended . 
+ Intel(R) graphics runtime level-zero-1.13.1-719 is installed, but is not recommended . 
+ Intel(R) graphics runtime libigc1-1.0.14828.26-736 is installed, but is not recommended . 
+ Intel(R) graphics runtime libigdfcl1-1.0.14828.26-736 is installed, but is not recommended . 
+ Intel(R) graphics runtime libigdgmm12-22.3.10-712 is installed, but is not recommended . 
+
+===============  Check Intel GPU Driver Finshed  ================
+
+
+=====================  Check Intel oneAPI  =====================
+
+ Intel(R) oneAPI DPC++/C++ Compiler is installed. 
+ Intel(R) oneAPI Math Kernel Library is installed. 
+
+=================  Check Intel oneAPI Passed  ==================
+
+
+==========================  Check Devices Availability  ==========================
+
+2024-01-28 04:52:28.302733: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2024-01-28 04:52:28.339525: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-01-28 04:52:28.339718: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-01-28 04:52:28.339966: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-01-28 04:52:28.348205: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2024-01-28 04:52:28.348778: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-01-28 04:52:29.190213: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2024-01-28 04:52:30.045905: I itex/core/wrapper/itex_gpu_wrapper.cc:35] Intel Extension for Tensorflow* GPU backend is loaded.
+2024-01-28 04:52:30.098070: I itex/core/wrapper/itex_cpu_wrapper.cc:70] Intel Extension for Tensorflow* AVX2 CPU backend is loaded.
+2024-01-28 04:52:30.175371: I itex/core/devices/gpu/itex_gpu_runtime.cc:129] Selected platform: Intel(R) Level-Zero
+2024-01-28 04:52:30.175480: I itex/core/devices/gpu/itex_gpu_runtime.cc:154] number of sub-devices is zero, expose root device.
+
+======================  Check Devices Availability Passed  =======================
+
+```
