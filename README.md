@@ -105,8 +105,10 @@ python3 BERT-embedding-from-text_small.py /mnt
 ```
 python3 Fine-Tuning_small_ARC.py /mnt
 ```
+The Intel Extension for TensorFlow uses a device called “XPU” and selects it automatically if an Arc GPU is accessible. The TF output will contain something like:
 ```
 2024-01-28 01:32:30.748607: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type XPU is enabled.
+Epoch 1/128
 32/32 [==============================] - 111s 3s/step - loss: 1.6260 - accuracy: 0.2539 - val_loss: 1.5417 - val_accuracy: 0.3008
 Epoch 2/128
 32/32 [==============================] - 95s 3s/step - loss: 1.5453 - accuracy: 0.3047 - val_loss: 1.4596 - val_accuracy: 0.3789
@@ -114,12 +116,6 @@ Epoch 3/128
 32/32 [==============================] - 102s 3s/step - loss: 1.4813 - accuracy: 0.3242 - val_loss: 1.4418 - val_accuracy: 0.4062
 Epoch 4/128
 32/32 [==============================] - 105s 3s/step - loss: 1.3898 - accuracy: 0.3789 - val_loss: 1.3872 - val_accuracy: 0.4414
-Epoch 5/128
-32/32 [==============================] - 107s 3s/step - loss: 1.3731 - accuracy: 0.3789 - val_loss: 1.4067 - val_accuracy: 0.3398
-Epoch 6/128
-32/32 [==============================] - 110s 3s/step - loss: 1.4038 - accuracy: 0.3867 - val_loss: 1.3582 - val_accuracy: 0.4492
-Epoch 7/128
-32/32 [==============================] - 115s 4s/step - loss: 1.4192 - accuracy: 0.3672 - val_loss: 1.3625 - val_accuracy: 0.4258
 ```
 # 6. intel-gpu-tools for monitoring
 ```
@@ -128,7 +124,7 @@ apt install intel-gpu-tools
 
 # 7. env_check.sh
 ```
-vagrant@arc310:~$ sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt intel/intel-extension-for-tensorflow:xpu
+vagrant@arc310:~$ sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" -e http_proxy="" intel/intel-extension-for-tensorflow:xpu
 root@92b867ae96ab:/# export path_to_site_packages=`python -c "import site; print(site.getsitepackages()[0])"`
 root@92b867ae96ab:/# echo $path_to_site_packages
 /usr/local/lib/python3.10/dist-packages
