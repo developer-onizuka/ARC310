@@ -121,3 +121,7 @@ Epoch 6/128
 Epoch 7/128
 32/32 [==============================] - 115s 4s/step - loss: 1.4192 - accuracy: 0.3672 - val_loss: 1.3625 - val_accuracy: 0.4258
 ```
+# 6. intel-gpu-tools for monitoring
+```
+apt install intel-gpu-tools
+```
