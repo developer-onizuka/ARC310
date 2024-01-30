@@ -117,6 +117,12 @@ Epoch 4/128
 ```
 
 # 6. Test the trained model
+
+```
+cat bf16_2024-01-30.txt |awk '{print $5}' |sed 's/ms\/step//g' > bf16.txt
+x=0;i=0;for i in $(cat bf16.txt);do x=$(($x+$i));done
+echo $(($x/$(wc -l bf16.txt|awk '{print $1}')))
+```
 # (1) CPU
 ```
 $ python3 load_model_small_ARC.py /mnt
