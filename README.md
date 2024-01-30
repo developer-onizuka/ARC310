@@ -120,30 +120,30 @@ Epoch 4/128
 
 # (1) CPU
 ```
-$ python3 load_model_small_ARC.py /mnt | tee cpu.log
+$ python3 load_model_small_ARC_sameSample.py /mnt | tee cpu.log
 ---
 cat cpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 471ms
+avg: 462ms
 ```
 # (2) XPU
 ```
-$ python3 load_model_small_ARC.py /mnt xpu | tee xpu.log
+$ python3 load_model_small_ARC_sameSample.py /mnt xpu | tee xpu.log
 ---
 cat xpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 152ms
+avg: 197ms
 ```
 # (3) XPU with BF16
 ```
-$ python3 load_model_small_ARC.py /mnt bf16 | tee bf16.log
+$ python3 load_model_small_ARC_sameSample.py /mnt bf16 | tee bf16.log
 ---
 cat bf16.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 157ms
+avg: 231ms
 ```
 
 # 7. intel-gpu-tools for monitoring
