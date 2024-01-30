@@ -118,28 +118,32 @@ Epoch 4/128
 
 # 6. Test the trained model
 
-```
-cat bf16_2024-01-30.txt |awk '{print $5}' |sed 's/ms\/step//g' > bf16.txt
-x=0;i=0;for i in $(cat bf16.txt);do x=$(($x+$i));done
-echo $(($x/$(wc -l bf16.txt|awk '{print $1}')))
-```
 # (1) CPU
 ```
-$ python3 load_model_small_ARC.py /mnt
+$ python3 load_model_small_ARC.py /mnt | tee cpu.log
 ---
-1/1 [==============================] - 0s 443ms/step
+cat cpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
+x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
+echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
+avg: 471ms
 ```
 # (2) XPU
 ```
-$ python3 load_model_small_ARC.py /mnt xpu
+$ python3 load_model_small_ARC.py /mnt xpu | tee xpu.log
 ---
-1/1 [==============================] - 0s 196ms/step
+cat xpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
+x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
+echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
+avg: 152ms
 ```
 # (3) XPU with BF16
 ```
-$ python3 load_model_small_ARC.py /mnt bf16
+$ python3 load_model_small_ARC.py /mnt bf16 | tee bf16.log
 ---
-1/1 [==============================] - 0s 152ms/step
+cat bf16.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
+x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
+echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
+avg: 157ms
 ```
 
 # 7. intel-gpu-tools for monitoring
