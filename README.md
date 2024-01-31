@@ -125,7 +125,7 @@ $ python3 load_model_small_ARC_sameSample.py /mnt | tee cpu.log
 cat cpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 462ms
+avg: 477ms
 ```
 # (2) XPU
 ```
@@ -134,7 +134,7 @@ $ python3 load_model_small_ARC_sameSample.py /mnt xpu | tee xpu.log
 cat xpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 197ms
+avg: 194ms
 ```
 # (3) XPU with BF16
 ```
@@ -143,34 +143,52 @@ $ python3 load_model_small_ARC_sameSample.py /mnt bf16 | tee bf16.log
 cat bf16.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 231ms
+avg: 174ms
 ```
 ```
-root@cc6468fb020f:/IntelGPUonWSL# tail -n 6 cpu.log 
-       1      2      3      4      5
-1  0.640  0.230  0.070  0.025  0.035
-2  0.295  0.340  0.250  0.095  0.020
-3  0.075  0.275  0.345  0.250  0.055
-4  0.005  0.075  0.155  0.580  0.185
-5  0.025  0.010  0.050  0.310  0.605
+root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 cpu.log 
+     1   2   3   4    5
+1  134  29  20   5   12
+2   63  64  50   9   14
+3   35  38  74  25   28
+4    9  14  40  63   74
+5    8   2  14  20  156
+       1      2     3      4     5
+1  0.670  0.145  0.10  0.025  0.06
+2  0.315  0.320  0.25  0.045  0.07
+3  0.175  0.190  0.37  0.125  0.14
+4  0.045  0.070  0.20  0.315  0.37
+5  0.040  0.010  0.07  0.100  0.78
 
-root@cc6468fb020f:/IntelGPUonWSL# tail -n 6 xpu.log 
-       1      2      3      4      5
-1  0.640  0.230  0.070  0.025  0.035
-2  0.295  0.340  0.250  0.095  0.020
-3  0.075  0.275  0.345  0.250  0.055
-4  0.005  0.075  0.155  0.580  0.185
-5  0.025  0.010  0.050  0.310  0.605
 
-root@cc6468fb020f:/IntelGPUonWSL# tail -n 6 bf16.log 
+root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 xpu.log 
+     1   2   3   4    5
+1  134  29  20   5   12
+2   63  64  50   9   14
+3   35  38  74  25   28
+4    9  14  40  63   74
+5    8   2  14  20  156
+       1      2     3      4     5
+1  0.670  0.145  0.10  0.025  0.06
+2  0.315  0.320  0.25  0.045  0.07
+3  0.175  0.190  0.37  0.125  0.14
+4  0.045  0.070  0.20  0.315  0.37
+5  0.040  0.010  0.07  0.100  0.78
+
+root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 bf16.log 
+     1   2   3   4    5
+1  135  28  20   5   12
+2   63  64  50   9   14
+3   34  40  72  25   29
+4   10  13  39  64   74
+5    8   2  14  20  156
        1      2      3      4      5
-1  0.640  0.230  0.070  0.025  0.035
-2  0.295  0.340  0.250  0.095  0.020
-3  0.075  0.275  0.345  0.245  0.060
-4  0.005  0.075  0.155  0.585  0.180
-5  0.025  0.010  0.055  0.305  0.605
+1  0.675  0.140  0.100  0.025  0.060
+2  0.315  0.320  0.250  0.045  0.070
+3  0.170  0.200  0.360  0.125  0.145
+4  0.050  0.065  0.195  0.320  0.370
+5  0.040  0.010  0.070  0.100  0.780
 ```
-
 
 # 7. intel-gpu-tools for monitoring
 ```
