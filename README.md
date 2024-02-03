@@ -87,6 +87,7 @@ Finished
 
 # 5. Fine-Tuning
 ```
+apt update
 apt install openjdk-8-jdk-headless -qq -y
 pip install pyspark pyarrow scikit-learn fastparquet transformers ipywidgets widgetsnbextension pandas-profiling matplotlib==3.7.3
 ```
