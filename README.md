@@ -223,7 +223,7 @@ apt install intel-gpu-tools
 
 ```
 root@d82fd0e75162:/# git clone https://github.com/intel/intel-extension-for-tensorflow
-root@d82fd0e75162:/# cd examples/infer_inception_v4_amp
+root@d82fd0e75162:/# cd intel-extension-for-tensorflow/examples/infer_inception_v4_amp
 root@d82fd0e75162:/# ./set_env_gpu.sh
 root@d82fd0e75162:/# wget https://storage.googleapis.com/intel-optimized-tensorflow/models/v1_8/inceptionv4_fp32_pretrained_model.pb
 root@d82fd0e75162:/# python3 infer_fp32_vs_amp.py gpu fp16
