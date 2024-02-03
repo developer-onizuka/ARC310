@@ -128,14 +128,14 @@ x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
 avg: 477ms
 ```
-# (2) XPU
+# (2) XPU (implicitly FP32)
 ```
 $ python3 load_model_small_ARC_sameSample.py /mnt xpu | tee xpu.log
 ---
 cat xpu.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 194ms
+avg: 155ms
 ```
 # (3) XPU with BF16
 ```
@@ -144,7 +144,16 @@ $ python3 load_model_small_ARC_sameSample.py /mnt bf16 | tee bf16.log
 cat bf16.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
 x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
 echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
-avg: 174ms
+avg: 169ms
+```
+# (4) XPU with FP16
+```
+$ python3 load_model_small_ARC_sameSample.py /mnt fp16 | tee fp16.log
+---
+cat fp16.log |grep "ms/step" |awk '{print $9}' |sed 's/ms\/step//g' > tmp.txt
+x=0;i=0;for i in $(cat tmp.txt);do x=$(($x+$i));done
+echo "avg: "$(($x/$(wc -l tmp.txt|awk '{print $1}')))"ms"
+avg: 164ms
 ```
 ```
 root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 cpu.log 
@@ -160,7 +169,6 @@ root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 cpu.log
 3  0.175  0.190  0.37  0.125  0.14
 4  0.045  0.070  0.20  0.315  0.37
 5  0.040  0.010  0.07  0.100  0.78
-
 
 root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 xpu.log 
      1   2   3   4    5
@@ -189,6 +197,20 @@ root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 bf16.log
 3  0.170  0.200  0.360  0.125  0.145
 4  0.050  0.065  0.195  0.320  0.370
 5  0.040  0.010  0.070  0.100  0.780
+
+root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 fp16.log
+     1   2   3   4    5
+1  134  29  20   5   12
+2   63  64  50   9   14
+3   35  38  74  25   28
+4    9  14  40  63   74
+5    8   2  14  20  156
+       1      2     3      4     5
+1  0.670  0.145  0.10  0.025  0.06
+2  0.315  0.320  0.25  0.045  0.07
+3  0.175  0.190  0.37  0.125  0.14
+4  0.045  0.070  0.20  0.315  0.37
+5  0.040  0.010  0.07  0.100  0.78
 ```
 
 # 7. intel-gpu-tools for monitoring
