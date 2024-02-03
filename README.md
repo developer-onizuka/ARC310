@@ -242,6 +242,7 @@ Finished
 root@d82fd0e75162:/# python3 infer_fp32_vs_amp.py gpu bf16
 ...
 Benchmark is done!
+
 Model                           FP32                    BF16                    
 Latency (s)                     0.023784714937210082    0.014566195011138917    
 Throughputs (FPS) BS=128        73.9774514391001        345.3883354868735       
