@@ -195,7 +195,42 @@ root@d82fd0e75162:/IntelGPUonWSL# tail -n 12 bf16.log
 apt install intel-gpu-tools
 ```
 
-# Appendix. env_check.sh
+# Appendix 1. Speed up Inference of Inception v4 by Advanced Automatic Mixed Precision on Intel CPU and GPU via Docker Container
+> https://intel.github.io/intel-extension-for-tensorflow/v2.13.0.0/examples/infer_inception_v4_amp/README.html
+
+```
+root@d82fd0e75162:/# git clone https://github.com/intel/intel-extension-for-tensorflow
+root@d82fd0e75162:/# cd examples/infer_inception_v4_amp
+root@d82fd0e75162:/# ./set_env_gpu.sh
+root@d82fd0e75162:/# wget https://storage.googleapis.com/intel-optimized-tensorflow/models/v1_8/inceptionv4_fp32_pretrained_model.pb
+root@d82fd0e75162:/# python3 infer_fp32_vs_amp.py gpu fp16
+...
+Benchmark is done!
+
+Model                           FP32                    FP16                    
+Latency (s)                     0.02352728843688965     0.014947474002838135    
+Throughputs (FPS) BS=128        74.3650018675194        343.66051824112714      
+
+Model                           FP32                    FP16                    
+Latency Normalized              1                       0.6353249777565195      
+Throughputs Normalized          1                       4.621266854176315       
+Finished
+
+root@d82fd0e75162:/# python3 infer_fp32_vs_amp.py gpu bf16
+...
+Benchmark is done!
+Model                           FP32                    BF16                    
+Latency (s)                     0.023784714937210082    0.014566195011138917    
+Throughputs (FPS) BS=128        73.9774514391001        345.3883354868735       
+
+Model                           FP32                    BF16                    
+Latency Normalized              1                       0.6124183135931043      
+Throughputs Normalized          1                       4.668832580305972       
+Finished
+```
+
+
+# Appendix 2. env_check.sh
 ```
 vagrant@arc310:~$ sudo docker run -it -p 8888:8888 --rm --device /dev/dri --name xpu -v /dev/dri/by-path:/dev/dri/by-path -v /home/vagrant:/mnt -e https_proxy="" -e http_proxy="" intel/intel-extension-for-tensorflow:xpu
 root@92b867ae96ab:/# export path_to_site_packages=`python -c "import site; print(site.getsitepackages()[0])"`
